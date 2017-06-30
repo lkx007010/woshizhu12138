@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!--<link rel="stylesheet" href="./css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    <link rel="stylesheet" href="./swiper/css/swiper.css">
+    <link rel="stylesheet" href="./css/jquery.fullPage.css">
+    <style>
+
+        @font-face{font-family:'AddFont';src:url(./fonts/AddFont.woff) format('woff')}
+        *{margin:0;padding:0;}
+        i{font-style: normal;}
+        ul li{list-style: none;}
+        a{text-decoration: none;color:black}
+        .leftNav{width: 256px;height: 100%;position: fixed;top:0;left:0;background: white;z-index: 99;display: flex;flex-direction: column;}
+        .logo{padding:28px 28px 0 28px;}
+        .logo img{width: 100%;}
+        .nav{margin:199px 0;position: relative}
+        .nav a{padding:7px 28px;display: block;}
+        .nav li{margin-top:1px;position: relative;transition: all .35s}
+        .nav li p{font-family: 'AddFont';font-size: 17px;margin: 0;transition: all .5s}
+        .nav li b{font-family: 'Microsoft JhengHei';font-size: 14px;color:#333;opacity:0.75}
+        .nav li a:after{content:'';width:0px;height: 55px;background: #00c0ff;position: absolute;right:0px;top:0;transition: all .5s;z-index: -1;}
+        .nav .active:after{width:3px;}
+        .nav li:hover a:after{width:100%;}
+        .nav li:hover p{color:white}
+        .pcolor{color:#00c0ff}
+        .icon i{margin-left: 9px;margin-top:-10px;cursor: pointer}
+        .icon i:first-child{margin-left: 28px;}
+        .rightContent{height: 100vh;max-width: 100%;margin-left: 256px; overflow: hidden;z-index: 1}
+        .bg1{background: url("./images/1497511346.jpg") no-repeat;background-size: cover; height: 100vh;background-position: center;}
+        .bg2{background: url("./images/1497593526.png") no-repeat;background-size: cover; height: 100vh;background-position: center;}
+        .navContent{transition: all .5s; padding:15px;width: 400px;max-width: 400px;position:absolute;left:120%;top:-150px;background: white;opacity: 0;visibility: hidden}
+        .nav li:hover .navContent{left:110%;visibility: visible; opacity: 1}
+        .nav li:hover .navContent:before{left:-40px;}
+        .navContent img{width:100%;}
+        .navContent:before{content:'';width: 0;transition: all .5s;border-width:20px;border-color:transparent white transparent transparent;position: absolute;left: -10px;top:45%;border-style: solid;}
+        .navContent span{z-index:1;padding: 5px 15px;font-size: 14px;color:white;position: relative;cursor: pointer;transition: all .5s;margin-right: 10px;}
+        .navContent span::after{content:'';width: 100%;height:29px;background:#00c0ff;position: absolute;top:0;left:0;transition: all .3s;z-index: -1}
+        .navContent span::before{content:'';width: 100%;height:29px;background:black;position: absolute;top:0;right:0;transition: all .3s;z-index: -2}
+        .navContent span:hover::after{width: 0;}
+        .navContent .ppp{font-size: 14px;margin-bottom: 15px;margin-top: 8px;}
+        .nav li:hover .navContent .ppp{color: black}
+        .btn .fa{padding:10px 15px;background:black;position: absolute;top:0;left:100%;cursor: pointer;color:white;transition:all .5s}
+        .btn .fa:hover{background: #4c70ba;}
+        #fp-nav ul li a.active span, .fp-slidesNav ul li a.active span{background: #00c0ff}
+        .bg2 a:hover::before{width: 0}
+        .bg2 p {display: block;  position: absolute;  bottom: 68px;  left: 0;  right: 0;  z-index: 5;  text-align: center;  }
+        .bg2 a {  display: inline-block;  padding: 0 48px;  line-height: 48px;  position: relative;  }
+        .bg2 b{  color: #fff;  font-size: 15px;  font-weight: normal;  position: relative;  z-index: 2;  transition:all .3s;  }
+        .bg2 a:after {  position: absolute;  width: 100%;  height: 100%;  content: '';  top: 0;  left: 0;  background: #333;  transition:all .3s;  }
+        .bg2 a:before {  position: absolute;  width: 100%;  height: 100%;  content: '';  top: 0;  left: 0;  background: #00c0ff;  transition:all .3s;  z-index: 1;
+        }
+        .rightTwo{margin-left: 256px;width: 100%;height: 100vh;max-width: 100%; background: url("./images/1497861268.jpg") no-repeat;background-size: cover;background-position: center;}
+        .rightThree{margin-left: 256px;width: 100%;height: 100vh;max-width: 100%; background: url("./images/1497604060.png") no-repeat;background-size: cover;background-position: center;}
+        .lianxi{width:100%;max-width: 100%;height: 374px;padding: 0 30px 0 200px;}
+        .title{margin: 10px 0}
+        .contactBoxLeft{width: 55%;float:left;}
+        .contactBoxRight{width: 45%;float:left}
+        .inputThree input{width: 25%;padding: 10px 20px;border: none;background: transparent;font-size: 18px;color: #ccc;outline: none;border-bottom: 2px solid white}
+        .contactBox{margin-top: 70px;}
+        .inputThree textarea{width: 87%;height: 100px;margin-top: 20px;font-size: 18px;outline: none;border: none;border-bottom: 2px solid white;background: transparent;padding: 10px 20px;resize: none;}
+        .contactBoxRight p span{color:white}
+        .contactBoxRight p{margin-bottom: 20px;}
+        .inputThree button{padding: 10px 30px;color:white;margin-top: 30px;background: transparent;border: none;outline: none;position: relative;z-index: 1;cursor: pointer}
+        .inputThree button:after{content:'';width:100%;height: 37px;background: #00c0ff;position: absolute;right:0px;top:0;transition: all .3s;z-index: -1}
+        .inputThree button:before{content:'';width:100%;height: 37px;background: black;position: absolute;left:0px;top:0;transition: all .3s;z-index: -2}
+        .inputThree button:hover::after{width:0}
+
+        .rightTwo .content{padding:15% 10%;overflow: hidden;}
+        .rightTwo .content .title{ padding:10px 0;line-height: 1.5;}
+        .rightTwo .content .title-left:hover strong{transform: translateX(5px)}
+        .rightTwo .content .title-left:hover .case{transform: translateX(8px)}
+        .rightTwo .content .title strong{font-size:24px;display: block;font-weight: normal;color:#666;transition: all .5s}
+        .rightTwo .content .title .case{color:#a8a8a8;display: block; font-size: 15px;font-family: 'AddFont';transition: all .5s .2s}
+        .rightTwo .content .title .title-right{ border: 1px solid #999; width: 48px;  height: 48px;line-height: 48px;  font-size: 24px;  background: #f8f8f8;text-align: center;  cursor: pointer; position: relative;color: #999;margin-top:5px;}
+        .rightTwo .content .tuwen{position: relative;overflow: hidden;}
+        .rightTwo .content .tuwenwrap{position: relative;display: flex;width:1000%;}
+        .rightTwo .content .tuwenwrap li{width:2%;overflow: hidden;cursor: pointer;}
+        .rightTwo .content .tuwenwrap li:hover img{transform: scale(1.2)}
+        .rightTwo .content .tuwenwrap img{width:100%;display: block;transition: transform .5s}
+        .rightTwo .content .tuwenwrap .imgWrap{overflow: hidden;height:50%;}
+        .rightTwo .content .tuwenwrap .first{width:4%;position: relative}
+        .rightTwo .content .tuwenwrap .first img{height:100%;}
+        .rightTwo .content .tuwenwrap .firstwenzi{position: absolute;top:100%;left:0;transition: all .5s;}
+        .rightTwo .content .tuwenwrap .first:hover .firstwenzi {top:0;opacity: .8;}
+        .rightTwo .content .tuwenwrap .wenzi{color:#fff;background: #f8f8f8;width: 100%;overflow: hidden;transition: all .5s;height:50%;}
+        .rightTwo .content .tuwenwrap .sanjiao:after{content: '';width:0;border:20px solid white;border-color:white transparent transparent transparent;position: absolute;left:50%;top:0;;z-index:-1}
+        .rightTwo .content .tuwenwrap .wenzi:hover{background: white;}
+        .rightTwo .content .tuwenwrap .wenzi p:nth-child(1){border-bottom: 1px solid #f3f3f3;;padding:18px;font-size: 16px;overflow: hidden;color: #333;white-space: nowrap}
+        .rightTwo .content .tuwenwrap .wenzi p:nth-child(2){color: #777;margin: 18px;line-height: 24px;overflow: hidden;font-size:14px;text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;}
+
+    </style>
+</head>
+<body>
+    <div class="leftNav">
+        <div class="btn">
+            <span class="fa fa-close"></span>
+        </div>
+        <div class="logo">
+        <img src="./images/1497515675.png">
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="##" class="active" title="官网首页"><b>官网首页</b><p class="pcolor">HOME</p></a></li>
+                <li><a href="##" title="关于我们"><b>关于我们</b><p>ABOUT US</p></a>
+                    <div class="navContent">
+                        <img src="./images/1497580373-1.png" alt="">
+                        <p class="ppp">本模板可设置每个导航栏目的“栏目图片”以及每个栏目的内容背景“标识图片”；让模板更加自由定义编辑样式！</p>
+                        <span><i>海洋馆介绍</i></span>
+                        <span><i>展区分布</i></span>
+                        <span><i>开放时间</i></span>
+                    </div>
+                </li>
+                <li><a href="##" title="体验项目门票订购"><b>体验项目门票订购</b><p>CASES</p></a>
+                    <div class="navContent">
+                        <img src="./images/1497583503-1.png" alt="">
+                        <p class="ppp">本模板可设置每个导航栏目的“栏目图片”以及每个栏目的内容背景“标识图片”；让模板更加自由定义编辑样式！</p>
+                        <span><i>海底世界</i></span>
+                        <span><i>水上世界</i></span>
+                    </div>
+                </li>
+                <li><a href="##" title="门票订购"><b>门票订购</b><p>PRODUCT</p></a>
+                    <div class="navContent">
+                        <img src="./images/1497583321-1.png" alt="">
+                        <p class="ppp">本模板可设置每个导航栏目的“栏目图片”以及每个栏目的内容背景“标识图片”；让模板更加自由定义编辑样式！</p>
+                        <span><i>海洋剧场</i></span>
+                        <span><i>海底世界</i></span>
+                        <span><i>水上乐园</i></span>
+                    </div>
+                </li>
+                <li><a href="##" title="海洋科普"><b>海洋科普</b><p>NEWS</p></a>
+                    <div class="navContent">
+                        <img src="./images/1497582902-1.png" alt="">
+                        <p class="ppp">本模板可设置每个导航栏目的“栏目图片”以及每个栏目的内容背景“标识图片”；让模板更加自由定义编辑样式！</p>
+                        <span><i>海洋鱼类</i></span>
+                        <span><i>海底世界</i></span>
+                    </div>
+                </li>
+                <li><a href="##" title="联系我们"><b>联系我们</b><p>CONTACT</p></a></li>
+
+            </ul>
+        </div>
+        <div class="icon">
+            <i class="fa fa-qq" style="color:#00c0ff;font-size: 18px;"></i>
+            <i class="fa fa-weibo" style="color:#fb3f41;font-size: 18px;"></i>
+            <i class="fa fa-weixin" style="color:#8ee426;font-size: 18px;"></i>
+        </div>
+    </div>
+
+    <div id="fullpage">
+        <div class="section">
+            <div class="rightContent">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide bg1"></div>
+                        <div class="swiper-slide bg2">
+                           <p><a href="##"><b>更多体验项目</b></a></p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="slide rightTwo">
+                <div class="content">
+                    <div class="title">
+                        <div class="title-left fl">
+                            <strong>体验项目</strong>
+                            <span class="case">CASE</span>
+                        </div>
+                        <div class="title-right fr" id="right">
+                            <span class="fa fa-caret-right"></span>
+                        </div>
+                        <div class="title-right fr" id="left">
+                            <span class="fa fa-caret-left"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="tuwen">
+                        <ul class="tuwenwrap">
+                            <li class="first"><img src="./images/1497609098.jpg" alt="">
+                                <div class="wenzi firstwenzi">
+                                    <p>体验项目</p>
+                                    <p>海洋生态馆展览有来自周边海域, 大约 250 品种的 2500 只海洋生物；是富娱乐、休闲和教育于一体，颇受游客青睐。我们所展览的海洋生物吸引了 2000 多万游客络绎不绝地前来参观。为了让每一游客充分体验到独特的乐趣，海洋生态馆定期更新所展览的生物品种并不断推出创新节目。</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="imgWrap"><img src="./images/1497583321.png" alt=""></div>
+
+                                <div class="wenzi">
+                                    <p>水母乐园</p>
+                                    <p>水生环境中重要的浮游生物，属于刺丝胞动物钵水母纲。水母是一种非常漂亮的水生动物。它的身体外形就像一把透明伞，伞状体的直径有大有小，大水母的伞状体直径可达2米。伞状体边缘长有一些须状的触手，有的触手可长达20-30米。</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="wenzi">
+                                    <p>海藻柱</p>
+                                    <p>生长在海中的藻类，是植物界的隐花植物，藻类包括数种不同类以光合作用产生能量的生物。它们一般被认为是简单的植物，主要特征为：无维管束组织，没有真正根、茎、叶的分化现象；不开花，无果实和种子；生殖器官无特化的保护组织，常直接由单一细胞产生孢子或配子；以及无胚胎的形成。</p>
+                                </div>
+                                <div class="imgWrap"><img src="./images/1497583639.jpg" alt=""> </div>
+                            </li>
+                            <li>
+
+                                <div class="imgWrap"><img src="./images/1497583503.png" alt=""> </div>
+                                <div class="wenzi">
+                                    <p>海洋剧场</p>
+                                    <p>海洋剧场是海洋哺乳类动物一展身手的好地方。每天为游客提供数场精采绝伦、有趣可爱的海豚和海狮表演剧场，海豚及海狮会接受训练员各种指令，做出各种高难道的动作、以及人与海豚亲密相处的情景。海洋剧场展厅内有欣赏人鲨共舞、奥运之风、美人鱼等精彩表演，体验人与自然和谐共处典范。</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="wenzi">
+                                    <p>海狮乐园</p>
+                                    <p>性情温和，多集群活动，陆岸可组成上千头的大群，海上多为1头或十数头的小群。视觉较差，但听觉和嗅觉灵敏。食物主要为底栖鱼类和头足类。雌兽每胎仅产1仔，幼仔出生时体长约100厘米，体重约20千克，3-5岁时达到性成熟，寿命可达20年以上。</p>
+                                </div>
+                                <div class="imgWrap"><img src="./images/1497582902.png" alt=""> </div>
+                            </li>
+                            <li>
+                                <div class="imgWrap"><img src="./images/1497582221.png" alt=""> </div>
+                                <div class="wenzi">
+                                    <p>水母乐园</p>
+                                    <p>水生环境中重要的浮游生物，属于刺丝胞动物钵水母纲。水母是一种非常漂亮的水生动物。它的身体外形就像一把透明伞，伞状体的直径有大有小，大水母的伞状体直径可达2米。伞状体边缘长有一些须状的触手，有的触手可长达20-30米。</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="wenzi">
+                                    <p>海底隧道</p>
+                                    <p>沿着一条小坡度的电动扶梯下去，你会感到温度骤然下降，灯光变得一片暗蓝，犹如置身海底，伴随着海洋生物鸣叫的音乐，透过拱型的透明罩，你抬头可以看到色彩斑斓的鱼儿欢快地在珊瑚丛中游来游去，似乎伸手可及，更有大胆的鱼儿会在距你几厘米处与你双目对视。</p>
+                                </div>
+                                <div class="imgWrap"><img src="./images/1497580373.png" alt=""> </div>
+
+                            </li>
+                            <li>
+                                <div class="imgWrap"><img src="./images/1497579693.png" alt=""> </div>
+                                <div class="wenzi">
+                                    <p>浮雕广场</p>
+                                    <p>沿着一条小坡度的电动扶梯下去，你会感到温度骤然下降，灯光变得一片暗蓝，犹如置身海底，伴随着海洋生物鸣叫的音乐，透过拱型的透明罩，你抬头可以看到色彩斑斓的鱼儿欢快地在珊瑚丛中游来游去，似乎伸手可及，更有大胆的鱼儿会在距你几厘米处与你双目对视。</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="wenzi">
+                                    <p>深海景观</p>
+                                    <p>这里是真正的海底缩影，多彩多姿、五光十色的珊瑚尽展风采，几千条形态各异的海鱼聚居在一起，令你目不暇接。你看！潜水员喂鱼了，群鱼争食的场面可是难得一见哦。</p>
+                                </div>
+                                <div class="imgWrap"><img src="./images/1497578860.png" alt=""> </div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section rightThree">
+            <div class="lianxi">
+                <div class="titlebox">
+                    <div class="title">
+                        <strong style="font-size: 24px;color:white">联系</strong><br>
+                        <span style="font-family: 'AddFont';font-size: 18px;color: #ccc">contact</span>
+                    </div>
+                </div>
+                <div class="contactBox">
+                    <div class="contactBoxLeft">
+                        <div class="inputThree">
+                            <input type="text" value="" placeholder="姓名">
+                            <input type="text" value="" placeholder="电话">
+                            <input type="text" value="" placeholder="Email">
+                            <textarea placeholder="留言内容"></textarea>
+                            <button type="button">提交信息</button>
+                        </div>
+                    </div>
+                    <div class="contactBoxRight">
+                        <p><span><em class="fa fa-map-marker"></em> 地址：湖南省长沙市岳麓区111号</span></p>
+                        <p><span><em class="fa fa-print"></em> 手机：138888888 / 12345678901</span></p>
+                        <p><span><em class="fa fa-envelope"></em> 邮箱：writeyouremail@domain.com</span></p>
+                        <p><span><em class="fa fa-phone"></em> 电话：+86-0663-8654321</span></p>
+                        <p><span><em class="fa fa-codepen"></em> 邮编：522000</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="./js/jquery-1.11.3.min.js"></script>
+<script src="./swiper/js/swiper.jquery.js"></script>
+<script src="./swiper/js/swiper.js"></script>
+<script src="./js/jquery.fullPage.js"></script>
+<script>
+    $('.nav li').click(function(){
+        var _index=$(this).index();
+        $(this).find('a').addClass('active').parent().siblings().find('a').removeClass('active');
+        $(this).find('p').addClass('pcolor').parents('li').siblings().find('p').removeClass('pcolor')
+    });
+    var mySwiper = new Swiper('.swiper-container', {
+//        autoplay: 2000,
+        loop: true,
+        speed:1000,
+        //分页器
+        pagination: '.swiper-pagination',
+        autoplayDisableOnInteraction:false,
+        observer:true,
+        observeParents:true
+    })
+    $('#fullpage').fullpage({
+        scrollingSpeed:1000,
+        navigation:true,
+        slidesNavigation:true,
+        loopHorizontal:true
+
+    })
+    var bol=true;
+    $('.btn .fa-close').click(function(){
+        if(bol){
+            $('.leftNav').animate({left:'-256px'})
+            $('.rightContent').animate({marginLeft:0})
+            $('.fa-close').removeClass('fa-close').addClass('fa-align-left')
+            $('.rightTwo').animate({marginLeft:0})
+            $('.rightThree').animate({marginLeft:0})
+        }else{
+            $('.leftNav').animate({left:0})
+            $('.rightContent').animate({marginLeft:'256px'})
+            $('.fa-align-left').removeClass('fa-align-left').addClass('fa-close')
+            $('.rightTwo').animate({marginLeft:'256px'})
+            $('.rightThree').animate({marginLeft:'256px'})
+        }
+        bol=!bol
+
+    })
+    var n=0;
+    var s=0;
+    $('.title-right').click(function(){
+
+        if($(this).children().hasClass('fa-caret-left')){
+            if(n<=0){
+                n=0;
+                return false;
+            }
+            n--;
+            s-=$('.tuwenwrap').find('li').eq(n).width();
+            $('.tuwenwrap').animate({"left":-s},500);
+
+        }
+        if($(this).children().hasClass('fa-caret-right')){
+            if(n>=4){
+                n=4;
+                return false;
+            }
+            s+=$('.tuwenwrap').find('li').eq(n).width();
+            $('.tuwenwrap').animate({"left":-s},500);
+            n++;
+        }
+    })
+
+</script>
+<!--<script src="./js/bootstrap.min.js"></script>-->
+
